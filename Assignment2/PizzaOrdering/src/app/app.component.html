@@ -1,0 +1,116 @@
+<div class="container mt-4">
+  <h2>Order Pizza</h2>
+  <form [formGroup]="pizzaForm">
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th class="text-center align-middle" rowspan="2">Toppings</th>
+        <th colspan="5" class="text-center">Pizza Size</th>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let size of pizzaSizes">
+          <ng-container formGroupName="{{size.controllName}}">
+            <th>{{size.name}} ({{size.price | currency}})
+              <input type="number" min="1" step="1" placeholder="1" formControlName = "numberOfPizza"
+            style="width: 60px; margin-left: 10px;" (change)="calculatePrice(size.name)"/>
+            </th>
+          </ng-container>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="table-light" colspan="5">Veg Toppings</td>
+      </tr>
+      <tr *ngFor="let item of vegToppings">
+        <td>{{item.displayName}} ({{item.price | currency}})</td>
+        <ng-container formGroupName = "smallSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.Small)" class="custom-checkbox">
+          </td>
+        </ng-container>
+        <ng-container formGroupName = "mediumSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.Medium)" class="custom-checkbox">
+          </td>
+        </ng-container>
+        <ng-container formGroupName = "largeSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.Large)" class="custom-checkbox">
+          </td>
+        </ng-container>
+        <ng-container formGroupName = "extraLargeSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.ExtraLarge)" class="custom-checkbox">
+          </td>
+        </ng-container>
+      </tr>
+      <tr>
+        <td class="table-light" colspan="5">Non Veg Toppings</td>
+      </tr>
+      <tr *ngFor="let item of nonVegToppings">
+        <td>{{item.displayName}} ({{item.price | currency}})</td>
+        <ng-container formGroupName = "smallSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.Small)" class="custom-checkbox">
+          </td>
+        </ng-container>
+        <ng-container formGroupName = "mediumSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.Medium)" class="custom-checkbox">
+          </td>
+        </ng-container>
+        <ng-container formGroupName = "largeSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.Large)" class="custom-checkbox">
+          </td>
+        </ng-container>
+        <ng-container formGroupName = "extraLargeSize">
+          <td class="text-center align-middle">
+            <input type="checkbox" id="vegTop{{item.name}}" formControlName="{{item.name}}" (change)="calculatePrice(size.ExtraLarge)" class="custom-checkbox">
+          </td>
+        </ng-container>
+      </tr>
+      <tr>
+        <td class="table-light-darker" colspan="5">Total</td>
+      </tr>
+      <tr>
+        <td>Offer</td>
+        <td></td>
+        <td class="text-center"><span *ngIf="showMediumSizeOffer && mediumSizeOffer">{{mediumSizeOffer.name}} -
+          <input type="checkbox" checked="true" disabled="true" class="custom-checkbox">
+        </span></td>
+        <td class="text-center"><span *ngIf="showLargeSizeOffer && largeSizeOffer">{{largeSizeOffer.name}} -
+          <input type="checkbox" checked="true" disabled="true" class="custom-checkbox">
+        </span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td class="text-center"><span *ngIf="smallSizePrice && smallSizePrice > 5">{{smallSizePrice | currency}}</span></td>
+        <td class="text-center">
+          <span *ngIf="showMediumSizeOffer && mediumSizeOffer">
+            <span style="text-decoration: line-through;">{{mediumSizePrice | currency}}</span>
+            <br />
+            <span>{{mediumSizeOffer.price | currency}}</span>
+          </span>
+          <span *ngIf="!showMediumSizeOffer && mediumSizePrice && mediumSizePrice > 7">
+            {{mediumSizePrice | currency}}
+          </span>
+        </td>
+        <td class="text-center">
+          <span *ngIf="showLargeSizeOffer && largeSizeOffer">
+            <span style="text-decoration: line-through;">{{largeSizePrice | currency}}</span>
+            <br />
+            <span *ngIf="largeSizePrice">{{(largeSizePrice * 0.5) | currency}}</span>
+          </span>
+          <span *ngIf="!showLargeSizeOffer && largeSizePrice && largeSizePrice > 8">
+            {{largeSizePrice | currency}}
+          </span>
+        </td>
+        <td class="text-center"><span *ngIf="extraLargeSizePrice && extraLargeSizePrice > 9">{{extraLargeSizePrice | currency}}</span></td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+</div>

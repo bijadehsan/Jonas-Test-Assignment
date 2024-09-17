@@ -1,0 +1,32 @@
+.table-light-darker {
+    background-color: #e3f2fd; 
+}
+
+.custom-checkbox {
+    appearance: none; /* Remove default checkbox appearance */
+    width: 24px;
+    height: 24px;
+    border: 2px solid green;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  
+  .custom-checkbox:checked {
+    background-color: white;
+    border-color: green;
+  }
+  
+  .custom-checkbox:checked::before {
+    content: '\2714'; /* Unicode checkmark character */
+    color: green;
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+
